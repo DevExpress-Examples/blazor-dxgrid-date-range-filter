@@ -2,23 +2,25 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1156193)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# Grid for Blazor - Implement Date Range Filter
+# Grid for Blazor - How to implement a date range filter
 
-This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range. In the example, the filter row displays two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components in the **Date** column. These components allow you to set the start and end dates of a date range. Once you set the date range, the Grid filters the column by the range.
+This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range. In the example, the filter row displays two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components in the **Date** column. In the Date Edits you can set the start and end dates of a date range. Once set, the Grid filters the column by the range.
 
 ![Filter Grid Column by a Date Range](date-range-filter.png)
 
 ## Overview
 
-Follow the steps below to allow users to filter a column in the Grid by a date range:
+Follow the steps below to display a date range filter in the filter row's cell:
 
 1. Add a Grid component to a page and bind the component to data.
 
 2. Set the component's [ShowFilterRow](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.ShowFilterRow) property to `true` to display the filter row.
 
-3. Specify the [FilterRowCellTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterRowCellTemplate) property of a column that displays date values. In the template, add [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components where users can specify the start and end dates of a range.
+3. Specify the [FilterRowCellTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterRowCellTemplate) property of a column that displays date values. In the template, add two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components to allow users to set the start and end dates of a range.
 
-4. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and data fields. In [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) event handlers of the components, update the start and/or end dates of the range. If the both start and end dates are set, create the filter criteria that returns whether a column value belongs to the date range. Apply the filter criteria to the column.
+4. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and data fields. Handle their [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) events.
+
+5. In the event handlers, assign the Date Edit's new value to the corresponding endpoint of the date range. If after that the start date becomes larger than the end date, assign the new value to other endpoint. Once both endpoints of a date range are set, create the filter criteria that returns whether the column value belongs to the date range. Apply the filter criteria to the column.
 
 ## Files to Look At
 
