@@ -1,0 +1,78 @@
+﻿@page "/"
+
+@using DateRangeFilter.Data
+@using DevExpress.Data.Filtering;
+@inject WeatherForecastService ForecastService
+
+@if (forecasts == null) {
+    <p><em>Loading...</em></p>
+}
+else {
+    <DxGrid Data="@forecasts" ShowFilterRow="true">
+        <Columns>
+            <DxGridDataColumn Caption="Date" FieldName="Date">
+                <FilterRowCellTemplate Context="filterContext">
+                    <DxFormLayout>
+                        <DxFormLayoutItem Caption="From:" ColSpanXl="6">
+                            <DxDateEdit Date="@StartDate"
+                                        DateChanged=@((DateTime? newStartDateValue) => {
+                                            StartChanged(newStartDateValue);
+                                            filterContext.FilterCriteria = GetNewCriteria(filterContext);
+                                        })
+                                        ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto">
+                            </DxDateEdit>
+                        </DxFormLayoutItem>
+                        <DxFormLayoutItem Caption="To:"ColSpanXl="6">
+                            <DxDateEdit Date="@EndDate"
+                                        DateChanged=@((DateTime? newEndDateValue) => {
+                                            EndChanged(newEndDateValue);
+                                            filterContext.FilterCriteria = GetNewCriteria(filterContext);
+                                        })
+                                        ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto">
+                            </DxDateEdit>
+                        </DxFormLayoutItem>
+                    </DxFormLayout>
+                </FilterRowCellTemplate>
+            </DxGridDataColumn>
+            <DxGridDataColumn Caption="Temperature" FieldName="TemperatureC" />
+            <DxGridDataColumn Caption="Summary" FieldName="Summary" />
+        </Columns>
+    </DxGrid>
+}
+
+@code {
+    private DateTime? StartDate { get; set; }
+    private DateTime? EndDate { get; set; }
+    private int MinDuration { get; set; } = 0;
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync() {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Today.AddDays(-10));
+    }
+    private CriteriaOperator GetNewCriteria(GridDataColumnFilterRowCellTemplateContext context) {
+        if (StartDate.HasValue && EndDate.HasValue) {
+            var operandProperty = new OperandProperty(context.DataColumn.FieldName);
+            var startDate = StartDate.Value.Date;
+            var endDate = EndDate.Value.Date.AddDays(1);           
+            return operandProperty >= startDate & operandProperty < endDate;
+        }
+        else
+            return null;
+    }
+    void StartChanged(DateTime? newDate) {
+        StartDate = newDate;
+        if (StartDate.HasValue) {
+            StartDate = StartDate.Value.Date;
+            if (EndDate.HasValue && EndDate.Value.Subtract(StartDate.Value).Days < MinDuration)
+                EndDate = StartDate.Value.AddDays(MinDuration);
+        }
+    }
+    void EndChanged(DateTime? newDate) {
+        EndDate = newDate;
+        if (EndDate.HasValue) {
+            EndDate = EndDate.Value.Date;
+            if (StartDate.HasValue && EndDate.Value.Subtract(StartDate.Value).Days < MinDuration)
+                StartDate = EndDate.Value.AddDays(-MinDuration);
+        }
+    }
+}
