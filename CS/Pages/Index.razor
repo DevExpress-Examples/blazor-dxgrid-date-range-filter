@@ -4,6 +4,12 @@
 @using DevExpress.Data.Filtering;
 @inject WeatherForecastService ForecastService
 
+<style>
+    .my-form-layout {
+        --dxbl-fl-item-spacing-x: 0.75rem;
+    }
+</style>
+
 @if (forecasts == null) {
     <p><em>Loading...</em></p>
 }
@@ -12,22 +18,24 @@ else {
         <Columns>
             <DxGridDataColumn Caption="Date" FieldName="Date">
                 <FilterRowCellTemplate Context="filterContext">
-                    <DxFormLayout>
-                        <DxFormLayoutItem Caption="From:" ColSpanXl="6">
+                    <DxFormLayout CssClass="my-form-layout" ItemCaptionAlignment="ItemCaptionAlignment.None">
+                        <DxFormLayoutItem>
                             <DxDateEdit Date="@StartDate"
                                         DateChanged=@((DateTime? newStartDateValue) => {
                                             StartChanged(newStartDateValue);
                                             filterContext.FilterCriteria = GetNewCriteria(filterContext);
                                         })
+                                        NullText="Start Date"
                                         ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto">
                             </DxDateEdit>
-                        </DxFormLayoutItem>
-                        <DxFormLayoutItem Caption="To:"ColSpanXl="6">
+                        </DxFormLayoutItem>                        
+                        <DxFormLayoutItem>
                             <DxDateEdit Date="@EndDate"
                                         DateChanged=@((DateTime? newEndDateValue) => {
                                             EndChanged(newEndDateValue);
                                             filterContext.FilterCriteria = GetNewCriteria(filterContext);
                                         })
+                                        NullText="End Date"
                                         ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto">
                             </DxDateEdit>
                         </DxFormLayoutItem>
