@@ -18,9 +18,9 @@ Follow the steps below to allow users to filter a grid column by a date range:
 
 3. Specify the [FilterRowCellTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterRowCellTemplate) property of a column that displays dates. In the template, create two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components where users can set the start and end dates of a range.
 
-4. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and data fields that store endpoints of the range. Handle [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) events of the components.
+4. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and the data fields that store endpoints of the range. Handle [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) events of the components.
 
-5. In the `DateChanged` event handler of a Date Edit, assign the Date Edit's new value to the corresponding endpoint of the date range. If after that the start date of the range becomes larger than the end date, update other endpoint value. Once both endpoints of the date range are set, create the filter criteria that returns whether the current value is in the range. Apply the filter criteria to the grid column.
+5. In the `DateChanged` event handler of a Date Edit, assign the Date Edit's new value to the corresponding endpoint of the date range. If after that the start date of the range becomes larger than the end date, update the other endpoint value. Once both endpoints of the date range are set, create the filter criteria that returns whether the current value is in the range. Apply the filter criteria to the grid column.
 
 ## Files to Look At
 
