@@ -4,7 +4,7 @@
 <!-- default badges end -->
 # Grid for Blazor - How to implement a date range filter
 
-This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range. In the example, the filter row displays two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components in the **Date** column. In the Date Edit components you can set the start and end dates of a date range. Once you set both endpoints of the range, the Grid filters the column by the date range.
+This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range. In the example, the filter row displays two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components in the **Date** column. In the Date Edit components you can set the start and end dates of a date range. Once you set both range endpoints, the Grid filters the column by the date range.
 
 ![Filter Grid Column by a Date Range](date-range-filter.png)
 
@@ -20,7 +20,7 @@ Follow the steps below to allow users to filter a grid column by a date range:
 
 4. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and data fields. Handle [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) events of the components.
 
-5. In the event handlers, assign the Date Edit's new value to the corresponding endpoint of the date range. If after that the start date becomes larger than the end date, assign the new value to other endpoint. Once both endpoints of the date range are set, create the filter criteria that returns whether the current column value belongs to the date range. Apply the filter criteria to the column with dates.
+5. In the `DateChanged` event handlers, assign the Date Edit's new value to the corresponding endpoint of the date range. If after that the start date becomes larger than the end date, update other endpoint value. Once both endpoints of the date range are set, create the filter criteria that returns whether the current value is in the range. Apply the filter criteria to the grid column.
 
 ## Files to Look At
 
