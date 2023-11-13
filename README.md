@@ -1,13 +1,14 @@
 <!-- default badges list -->
-![](https://img.shields.io/endpoint?url=https://codecentral.devexpress.com/api/v1/VersionRange/619526428/23.1.3%2B)
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1156193)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# Grid for Blazor - How to implement a date range filter
+# Grid for Blazor - How to implement a date range filter in a filter row
 
-This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range. In the example, the filter row displays two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components in the **Date** column. These components allow you to set the start and end dates of a date range. Once you set both range endpoints, the Grid filters the column by the date range.
+This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range. In the example, the [filter row](https://docs.devexpress.com/Blazor/404325/components/grid/filter-data/filter-row) displays two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components in the **Date** column. These components allow you to set the start and end dates of a date range. Once you set both dates, the Grid filters the column by the range.
 
 ![Filter Grid Column by a Date Range](date-range-filter.gif)
+
+You can also incorporate a date range filter in a [column filter menu](https://docs.devexpress.com/Blazor/404417/components/grid/filter-data/filter-menu). Refer to the following documentation section for more information and an example: [Custom Filter Menu Content (Template)](https://docs.devexpress.com/Blazor/404417/components/grid/filter-data/filter-menu#custom-filter-menu-content-template).
 
 ## Overview
 
