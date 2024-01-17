@@ -1,0 +1,25 @@
+﻿@page "/"
+
+@using DateRangeFilter.Data
+@using DevExpress.Data.Filtering;
+@inject WeatherForecastService ForecastService
+
+<DxGrid Data="@forecasts" ShowFilterRow="true" EditorRenderMode="GridEditorRenderMode.Detached">
+    <Columns>
+        <DxGridDataColumn Caption="Date" FieldName="Date">
+            <FilterRowCellTemplate Context="filterContext">
+                <DateRange_FilterRow FilterRowContext="filterContext" />
+            </FilterRowCellTemplate>
+        </DxGridDataColumn>
+        <DxGridDataColumn Caption="Temperature" FieldName="TemperatureC" />
+        <DxGridDataColumn Caption="Summary" FieldName="Summary" />
+    </Columns>
+</DxGrid>
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync() {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Today.AddDays(-10));
+    }
+}

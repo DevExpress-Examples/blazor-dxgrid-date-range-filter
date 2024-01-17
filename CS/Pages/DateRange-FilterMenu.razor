@@ -1,0 +1,47 @@
+﻿@using DateRangeFilter.Pages;
+@using DevExpress.Data.Filtering;
+@using DevExpress.Data.Filtering.Helpers;
+
+<DateRangeBase ItemSize="ItemSize"
+               FilterCriteria="FilterCriteria"
+               FilterCriteriaChanged="DateRange_CriteriaChanged"
+               FieldName="@FieldName"
+               MinDate="MinDate"
+               MaxDate="MaxDate"
+               DateEditEnabled="DateEditEnabled" />
+
+@code {
+    [Parameter]
+    public GridDataColumnFilterMenuTemplateContext FilterMenuContext { get; set; }
+
+    int ItemSize { get; set; }
+
+    string FieldName { get; set; }
+
+    bool DateEditEnabled { get; set; }
+    
+    DateTime MinDate { get; set; }
+    DateTime MaxDate { get; set; }
+
+    CriteriaOperator FilterCriteria { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        FilterCriteria = FilterMenuContext.FilterCriteria;
+        FieldName = FilterMenuContext.DataColumn.FieldName;
+        ItemSize = 12;
+
+        var items = await FilterMenuContext.GetDataItemsAsync();
+        var allDates = items.Select(i => Convert.ToDateTime(i.Value)).ToList();
+
+        if(allDates.Any()) {
+            MinDate = allDates.Min();
+            MaxDate = allDates.Max();
+
+            DateEditEnabled = true;
+        }
+    }
+
+    void DateRange_CriteriaChanged(CriteriaOperator newCriteria) {
+        FilterMenuContext.FilterCriteria = newCriteria;
+    }
+}
