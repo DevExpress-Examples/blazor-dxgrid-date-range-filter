@@ -54,7 +54,7 @@
 
     void StartDate_Changed(DateTime? value) {
         StartDate = value;
-        if(StartDate < EndDate)
+        if(StartDate > EndDate)
             EndDate = StartDate;
         UpdateCriteria();
     }
