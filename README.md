@@ -3,13 +3,13 @@
 [![](https://img.shields.io/badge/Open_in_DevExpress_Support_Center-FF7200?style=flat-square&logo=DevExpress&logoColor=white)](https://supportcenter.devexpress.com/ticket/details/T1156193)
 [![](https://img.shields.io/badge/📖_How_to_use_DevExpress_Examples-e9f6fc?style=flat-square)](https://docs.devexpress.com/GeneralInformation/403183)
 <!-- default badges end -->
-# Grid for Blazor - How to implement a date range filter in a filter row
+# Grid for Blazor - How to implement a date range filter
 
-This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range. In the example, the [filter row](https://docs.devexpress.com/Blazor/404325/components/grid/filter-data/filter-row) displays two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components in the **Date** column. These components allow you to set the start and end dates of a date range. Once you set both dates, the Grid filters the column by the range.
+This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range in a [filter row](./CS/Pages/FilterRow.razor) or [filter menu](./CS/Pages/FilterMenu.razor). In the example, the **Date** column contains a [Form Layout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) with two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components. These components allow you to set the start and end dates of a date range. Once you set a date or both dates, the Grid filters the column by the specified range.
 
-![Filter Grid Column by a Date Range](date-range-filter.gif)
+![Filter Grid Column by a Date Range in a Filter Row](filter-row.gif)
 
-You can also incorporate a date range filter in a [column filter menu](https://docs.devexpress.com/Blazor/404417/components/grid/filter-data/filter-menu). Refer to the following documentation section for more information and an example: [Custom Filter Menu Content (Template)](https://docs.devexpress.com/Blazor/404417/components/grid/filter-data/filter-menu#custom-filter-menu-content-template).
+![Filter Grid Column by a Date Range in a Filter Menu](filter-menu.gif)
 
 ## Overview
 
@@ -17,21 +17,25 @@ Follow the steps below to allow users to filter a grid column by a date range:
 
 1. Add a Grid component to a page and bind the component to data.
 
-2. Set the component's [ShowFilterRow](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.ShowFilterRow) property to `true` to display the filter row.
+2. Display the Grid's [filter row](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.ShowFilterRow) or [filter menu](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGrid.FilterMenuButtonDisplayMode).
 
-3. Specify the [FilterRowCellTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterRowCellTemplate) property of a column that displays dates. In the template, create two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components where users can set the start and end dates of a range.
+3. Specify the template for the chosen filtering approach ([FilterRowCellTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterRowCellTemplate) or [FilterMenuTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterMenuTemplate)) for a column that displays dates. In the template, define context-specific component that processes filter (see [FilerRow.razor](./CS/Pages/DateRange-FilterRow.razor) and [FilerMenu.razor](./CS/Pages/DateRange-FilterMenu.razor) file).
 
-4. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and the data fields that store endpoints of the range.
+4. Create a [base range component](./CS/Pages/DateRangeBase.razor) that contains two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components where users can set the start and end dates of a range.
 
-5.  Handle [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) events of the Date Edit components. In a component's event handler, assign the component's new value to the corresponding endpoint of the date range. If the start date of the range exceeds the end date as a result, update the other endpoint value. Once both endpoints of the date range are set, create the filter criteria that determine whether the current value is in the range. Apply the filter criteria to the grid column.
+5. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and the data fields that store endpoints of the range.
+
+6. Handle [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) events of the Date Edit components. In a component's event handler, assign the component's new value to the corresponding endpoint of the date range. Once at least one endpoint of the date range is set, update the filter criteria that determine whether the current value is in the range. Apply the filter criteria to the grid column.
 
 ## Files to Look At
 
-- [Index.razor](./CS/Pages/Index.razor)
+- [DateRangeBase.razor](./CS/Pages/DateRangeBase.razor)
+- [DateRange-FilterRow.razor](./CS/Pages/DateRange-FilterRow.razor)
+- [DateRange-FilterMenu.razor](./CS/Pages/DateRange-FilterMenu.razor)
 
 ## Documentation
 
-- [Filter Data](https://docs.devexpress.com/Blazor/403143/grid#filter-data)
+- [Filter Data in Blazor Grid](https://docs.devexpress.com/Blazor/404326/components/grid/data-shaping/filter-data/filter-data)
 - [Examples](https://docs.devexpress.com/Blazor/404035/grid/examples)
 
 ## More Examples

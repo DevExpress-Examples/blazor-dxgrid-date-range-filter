@@ -1,0 +1,25 @@
+﻿@page "/fiter-menu"
+
+@using DateRangeFilter.Data
+@inject WeatherForecastService ForecastService
+
+<DxGrid Data="forecasts"
+    FilterMenuButtonDisplayMode="GridFilterMenuButtonDisplayMode.Always">
+    <Columns>
+        <DxGridDataColumn Caption="Date" FieldName="Date">
+            <FilterMenuTemplate>
+                <DateRange_FilterMenu FilterMenuContext="context" />
+            </FilterMenuTemplate>
+        </DxGridDataColumn>
+        <DxGridDataColumn Caption="Temperature" FieldName="TemperatureC" />
+        <DxGridDataColumn Caption="Summary" FieldName="Summary" />
+    </Columns>
+</DxGrid>
+
+@code {
+    private WeatherForecast[]? forecasts;
+
+    protected override async Task OnInitializedAsync() {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Today.AddDays(-10));
+    }
+}
