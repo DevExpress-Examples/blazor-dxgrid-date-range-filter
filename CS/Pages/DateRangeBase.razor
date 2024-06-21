@@ -5,10 +5,10 @@
                    EndDate="@EndDate"
                    StartDateChanged="@((DateTime? newStartDate) => StartDate_Changed(newStartDate))"
                    EndDateChanged="@((DateTime? newEndDate)=> EndDate_Changed(newEndDate))"
-                   Enabled="DateRangePickerEnabled"
-                   MinDate="MinDate"
-                   MaxDate="MaxDate"
-                   ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
+                   Enabled="@DateRangePickerEnabled"
+                   MinDate="@MinDate"
+                   MaxDate="@MaxDate"
+                   ClearButtonDisplayMode="@DataEditorClearButtonDisplayMode.Auto" />
 
 @code {
     [Parameter]
