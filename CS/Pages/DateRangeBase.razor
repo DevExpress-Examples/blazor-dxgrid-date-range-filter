@@ -1,30 +1,16 @@
 ﻿@using DevExpress.Data.Filtering;
 @using DevExpress.Data.Filtering.Helpers;
 
-<DxFormLayout>
-    <DxFormLayoutItem Caption="From" ColSpanSm="ItemSize">
-        <DxDateEdit T="DateTime?"
-                    Enabled="DateEditEnabled"
-                    Date="StartDate"
-                    DateChanged="StartDate_Changed"
-                    MinDate="StartDateEdit_MinDate"
-                    MaxDate="StartDateEdit_MaxDate"
-                    ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
-    </DxFormLayoutItem>
-    <DxFormLayoutItem Caption="To" ColSpanSm="ItemSize">
-        <DxDateEdit T="DateTime?"
-                    Enabled="DateEditEnabled"
-                    Date="EndDate"
-                    DateChanged="EndDate_Changed"
-                    MinDate="EndDateEdit_MinDate"
-                    MaxDate="EndDateEdit_MaxDate"
-                    ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
-    </DxFormLayoutItem>
-</DxFormLayout>
+<DxDateRangePicker StartDate="@StartDate"
+                   EndDate="@EndDate"
+                   StartDateChanged="@((DateTime? newStartDate) => StartDate_Changed(newStartDate))"
+                   EndDateChanged="@((DateTime? newEndDate)=> EndDate_Changed(newEndDate))"
+                   Enabled="DateRangePickerEnabled"
+                   MinDate="MinDate"
+                   MaxDate="MaxDate"
+                   ClearButtonDisplayMode="DataEditorClearButtonDisplayMode.Auto" />
 
 @code {
-    [Parameter]
-    public int ItemSize { get; set; }
     [Parameter]
     public string FieldName { get; set; }
     [Parameter]
@@ -33,7 +19,7 @@
     public EventCallback<CriteriaOperator> FilterCriteriaChanged { get; set; }
     
     [Parameter]
-    public bool DateEditEnabled { get; set; } = true;
+    public bool DateRangePickerEnabled { get; set; } = true;
     [Parameter]
     public DateTime MinDate { get; set; } = DateTime.MinValue;
     [Parameter]
@@ -42,26 +28,16 @@
     DateTime? StartDate { get; set; }
     DateTime? EndDate { get; set; }
 
-    DateTime StartDateEdit_MinDate => MinDate;
-    DateTime StartDateEdit_MaxDate => EndDate != null && EndDate.Value >= StartDateEdit_MinDate ? EndDate.Value : MaxDate;
-
-    DateTime EndDateEdit_MinDate => StartDate != null && StartDate.Value <= EndDateEdit_MaxDate ? StartDate.Value : MinDate;
-    DateTime EndDateEdit_MaxDate => MaxDate;
-
     protected override async Task OnInitializedAsync() {
         (StartDate, EndDate) = LoadDateRangeValues(FilterCriteria, FieldName);
     }
 
     void StartDate_Changed(DateTime? value) {
         StartDate = value;
-        if(StartDate > EndDate)
-            EndDate = StartDate;
         UpdateCriteria();
     }
     void EndDate_Changed(DateTime? value) {
         EndDate = value;
-        if(StartDate > EndDate)
-            StartDate = EndDate;
         UpdateCriteria();
     }
     async Task UpdateCriteria() {

@@ -5,7 +5,7 @@
 <!-- default badges end -->
 # Grid for Blazor - How to implement a date range filter
 
-This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range in a [filter row](./CS/Pages/FilterRow.razor) or [filter menu](./CS/Pages/FilterMenu.razor). In the example, the **Date** column contains a [Form Layout](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxFormLayout) with two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components. These components allow you to set the start and end dates of a date range. Once you set a date or both dates, the Grid filters the column by the specified range.
+This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range in a [filter row](./CS/Pages/FilterRow.razor) or [filter menu](./CS/Pages/FilterMenu.razor). In the example, the **Date** column contains a [Date Range Picker](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateRangePicker-1) component that allows you to set the start and end dates of a date range. Once you set a date or both dates, the Grid filters the column by the specified range.
 
 ![Filter Grid Column by a Date Range in a Filter Row](filter-row.gif)
 
@@ -21,13 +21,13 @@ Follow the steps below to allow users to filter a grid column by a date range:
 
 3. Specify the template for the chosen filtering approach ([FilterRowCellTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterRowCellTemplate) or [FilterMenuTemplate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxGridDataColumn.FilterMenuTemplate)) for a column that displays dates. In the template, define context-specific component that processes filter (see [FilerRow.razor](./CS/Pages/DateRange-FilterRow.razor) and [FilerMenu.razor](./CS/Pages/DateRange-FilterMenu.razor) file).
 
-4. Create a [base range component](./CS/Pages/DateRangeBase.razor) that contains two [Date Edit](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1) components where users can set the start and end dates of a range.
+4. Create a [base range component](./CS/Pages/DateRangeBase.razor) that contains the [Date Range Picker](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateRangePicker-1) component where users can set the start and end dates of a range.
 
-5. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [Date](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.Date) properties of the Date Edit components and the data fields that store endpoints of the range.
+5. Implement [two-way data binding](https://docs.devexpress.com/Blazor/402330/common-concepts/two-way-data-binding) between [StartDate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateRangePicker-1.StartDate) and [EndDate](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateRangePicker-1.EndDate) properties of the Date Range Picker and data fields that store endpoints of the range.
 
-6. Handle [DateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateEdit-1.DateChanged) events of the Date Edit components. In a component's event handler, assign the component's new value to the corresponding endpoint of the date range. Once at least one endpoint of the date range is set, update the filter criteria that determine whether the current value is in the range. Apply the filter criteria to the grid column.
+6. Handle [StartDateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateRangePicker-1.StartDateChanged) and [EndDateChanged](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateRangePicker-1.EndDateChanged) events of the Date Range Picker component. In each event handler, assign the component's new value to the corresponding endpoint of the date range. Once at least one endpoint of the date range is set, update the filter criteria that determine whether the current value is in the range. Apply the filter criteria to the grid column.
 
-## Files to Look At
+## Files to Review
 
 - [DateRangeBase.razor](./CS/Pages/DateRangeBase.razor)
 - [DateRange-FilterRow.razor](./CS/Pages/DateRange-FilterRow.razor)

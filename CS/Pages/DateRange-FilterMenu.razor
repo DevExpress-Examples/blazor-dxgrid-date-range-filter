@@ -2,23 +2,20 @@
 @using DevExpress.Data.Filtering;
 @using DevExpress.Data.Filtering.Helpers;
 
-<DateRangeBase ItemSize="ItemSize"
-               FilterCriteria="FilterCriteria"
+<DateRangeBase FilterCriteria="FilterCriteria"
                FilterCriteriaChanged="DateRange_CriteriaChanged"
                FieldName="@FieldName"
                MinDate="MinDate"
                MaxDate="MaxDate"
-               DateEditEnabled="DateEditEnabled" />
+               DateRangePickerEnabled="DateRangePickerEnabled" />
 
 @code {
     [Parameter]
     public GridDataColumnFilterMenuTemplateContext FilterMenuContext { get; set; }
 
-    int ItemSize { get; set; }
-
     string FieldName { get; set; }
 
-    bool DateEditEnabled { get; set; }
+    bool DateRangePickerEnabled { get; set; }
     
     DateTime MinDate { get; set; }
     DateTime MaxDate { get; set; }
@@ -28,7 +25,6 @@
     protected override async Task OnInitializedAsync() {
         FilterCriteria = FilterMenuContext.FilterCriteria;
         FieldName = FilterMenuContext.DataColumn.FieldName;
-        ItemSize = 12;
 
         var items = await FilterMenuContext.GetDataItemsAsync();
         var allDates = items.Select(i => Convert.ToDateTime(i.Value)).ToList();
@@ -37,7 +33,7 @@
             MinDate = allDates.Min();
             MaxDate = allDates.Max();
 
-            DateEditEnabled = true;
+            DateRangePickerEnabled = true;
         }
     }
 
