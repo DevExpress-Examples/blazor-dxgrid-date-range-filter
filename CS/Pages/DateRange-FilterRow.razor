@@ -2,23 +2,19 @@
 @using DevExpress.Data.Filtering;
 @using DevExpress.Data.Filtering.Helpers;
 
-<DateRangeBase ItemSize="ItemSize"
-               FilterCriteriaChanged="DateRange_CriteriaChanged"
+<DateRangeBase FilterCriteriaChanged="DateRange_CriteriaChanged"
                FilterCriteria="FilterCriteria"
                FieldName="@FieldName" />
 
 @code {
     [Parameter]
     public GridDataColumnFilterRowCellTemplateContext FilterRowContext { get; set; }
-
-    int ItemSize { get; set; }
     string FieldName { get; set; }
     CriteriaOperator FilterCriteria { get; set; }
 
     protected override async Task OnInitializedAsync() {
         FilterCriteria = FilterRowContext.FilterCriteria;
         FieldName = FilterRowContext.DataColumn.FieldName;
-        ItemSize = 6;
     }
 
     void DateRange_CriteriaChanged(CriteriaOperator newCriteria) {
