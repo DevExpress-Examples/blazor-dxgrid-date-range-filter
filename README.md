@@ -8,9 +8,9 @@
 
 This example demonstrates how to allow users to filter a column in the [DevExpress Blazor Grid](https://docs.devexpress.com/Blazor/403143/grid) by a date range in a [filter row](./CS/Pages/FilterRow.razor) or [filter menu](./CS/Pages/FilterMenu.razor). In the example, the **Date** column contains a [Date Range Picker](https://docs.devexpress.com/Blazor/DevExpress.Blazor.DxDateRangePicker-1) component that allows you to set the start and end dates of a date range. Once you set a date or both dates, the Grid filters the column by the specified range.
 
-![Filter Grid Column by a Date Range in a Filter Row](filter-row.gif)
+![Filter Grid Column by a Date Range in a Filter Row](filter-row.png)
 
-![Filter Grid Column by a Date Range in a Filter Menu](filter-menu.gif)
+![Filter Grid Column by a Date Range in a Filter Menu](filter-menu.png)
 
 ## Overview
 
